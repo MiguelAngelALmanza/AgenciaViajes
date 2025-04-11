@@ -8,5 +8,6 @@ public class Main {
         RegistroVista vista = new RegistroVista();
         new UsuarioControlador(vista);
         vista.setVisible(true);
+        int elmer = 1;
     }
 }
