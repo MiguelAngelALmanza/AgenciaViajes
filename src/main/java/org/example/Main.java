@@ -1,11 +1,12 @@
 package org.example;
-import org.example.Vista.LoginVista;
-import org.example.Controlador.LoginControlador;
-
+import org.example.Vista.RegistroVista;
+import org.example.Controlador.UsuarioControlador;
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        LoginVista vistaLogin = new LoginVista();
-        new LoginControlador(vistaLogin);
-        vistaLogin.setVisible(true);
+        RegistroVista vista = new RegistroVista();
+        new UsuarioControlador(vista);
+        vista.setVisible(true);
     }
 }
