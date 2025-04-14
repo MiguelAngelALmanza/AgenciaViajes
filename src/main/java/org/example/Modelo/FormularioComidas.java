@@ -95,8 +95,69 @@ public class FormularioComidas {
 
         panel.add(enviarBtn);
         frame.add(panel);
+        JButton dietaEspecialBtn = new JButton("Dieta especial");
+        dietaEspecialBtn.addActionListener(e -> mostrarFormularioDietas());
+        panel.add(dietaEspecialBtn);
         frame.setVisible(true);
     }
+    public static void mostrarFormularioDietas() {
+        JFrame dietaFrame = new JFrame("Seleccione su dieta especial");
+        dietaFrame.setSize(400, 300);
+        dietaFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel label = new JLabel("Seleccione una dieta especial:");
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(label);
+
+        JRadioButton diabetico = new JRadioButton("Diabético");
+        JRadioButton celiaco = new JRadioButton("Celíaco");
+        JRadioButton vegano = new JRadioButton("Vegano");
+        JRadioButton vegetariano = new JRadioButton("Vegetariano");
+        JRadioButton otro = new JRadioButton("Otra dieta especial");
+
+        ButtonGroup grupo = new ButtonGroup();
+        grupo.add(diabetico);
+        grupo.add(celiaco);
+        grupo.add(vegano);
+        grupo.add(vegetariano);
+        grupo.add(otro);
+
+        panel.add(diabetico);
+        panel.add(celiaco);
+        panel.add(vegano);
+        panel.add(vegetariano);
+        panel.add(otro);
+
+        JButton verMenu = new JButton("Ver menú");
+        verMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(verMenu);
+
+        verMenu.addActionListener(e -> {
+            String mensaje = "";
+            if (diabetico.isSelected()) {
+                mensaje = "Menú para diabéticos:\n- Ensalada de quinua\n- Pollo a la plancha\n- Frutas con bajo índice glucémico";
+            } else if (celiaco.isSelected()) {
+                mensaje = "Menú para celíacos:\n- Tortilla de papa\n- Ensalada fresca\n- Yogurt sin gluten";
+            } else if (vegano.isSelected()) {
+                mensaje = "Menú vegano:\n- Hamburguesa de lentejas\n- Arroz con vegetales\n- Batido de frutas";
+            } else if (vegetariano.isSelected()) {
+                mensaje = "Menú vegetariano:\n- Lasaña de verduras\n- Sopa de lentejas\n- Ensalada caprese";
+            } else if (otro.isSelected()) {
+                mensaje = "Por favor consulte con el nutricionista para una dieta personalizada.";
+            } else {
+                mensaje = "Por favor seleccione una opción.";
+            }
+
+            JOptionPane.showMessageDialog(dietaFrame, mensaje, "Menú sugerido", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        dietaFrame.add(panel);
+        dietaFrame.setVisible(true);
+    }
+
 
     public static void agregarInfoComida(JCheckBox checkbox, String ingredientes, String nombreImagen) {
         checkbox.addMouseListener(new MouseAdapter() {
