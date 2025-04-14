@@ -1,6 +1,8 @@
 package org.example.Controlador;
 
+import org.example.Modelo.Paquetebasico;
 import org.example.Modelo.Usuario;
+import org.example.Vista.PaqueteVista;
 import org.example.Vista.RegistroVista;
 
 
@@ -42,8 +44,24 @@ public class RegistroControlador {
 
         Usuario nuevo = new Usuario(nombre, apellido, correo, contraseña, preferencias);
 
-        // Aquí podrías guardar el usuario
+
         vista.mostrarMensaje("¡Cuenta creada con éxito!\nBienvenido/a " + nombre);
         vista.dispose(); // Cierra la ventana de registro
+        vista.mostrarMensaje("¡Cuenta creada con éxito!");
+        vista.dispose(); // Cerramos la ventana de registro
+
+
+        List<Paquetebasico> paquetes = List.of(
+                new Paquetebasico("Montañas de Bolivia", 350.0, 4, List.of("Guía", "Comidas", "Transporte")),
+                new Paquetebasico("Playas del Caribe", 750.0, 7, List.of("Hotel 5*", "Comidas", "Tour acuático")),
+                new Paquetebasico("Aventura en la Selva", 499.0, 5, List.of("Rafting", "Caminatas", "Camping"))
+        );
+
+
+        PaqueteVista paquetesVista = new PaqueteVista(paquetes);
+        new PaquetebControlador(paquetesVista, paquetes);
+        paquetesVista.setVisible(true);
+
     }
+
 }
