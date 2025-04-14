@@ -2,6 +2,7 @@ package org.example.Controlador;
 
 import org.example.Modelo.Paquetebasico;
 import org.example.Modelo.Usuario;
+import org.example.Vista.CatalogoVista;
 import org.example.Vista.PaqueteVista;
 import org.example.Vista.RegistroVista;
 
@@ -61,6 +62,10 @@ public class RegistroControlador {
         PaqueteVista paquetesVista = new PaqueteVista(paquetes);
         new PaquetebControlador(paquetesVista, paquetes);
         paquetesVista.setVisible(true);
+
+        CatalogoVista catalogoVista = new CatalogoVista();
+        new CatalogoControlador(catalogoVista);
+        catalogoVista.setVisible(true);
 
     }
 

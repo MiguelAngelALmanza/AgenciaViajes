@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import org.example.Vista.CatalogoVista;
+import org.example.Controlador.CatalogoControlador;
 
 public class LoginControlador {
     private LoginVista vista;
@@ -44,6 +46,11 @@ public class LoginControlador {
                     PaqueteVista paquetesVista = new PaqueteVista(paquetes);
                     new PaquetebControlador(paquetesVista, paquetes);
                     paquetesVista.setVisible(true);
+
+//alex
+                    CatalogoVista catalogoVista = new CatalogoVista();
+                    new CatalogoControlador(catalogoVista);
+                    catalogoVista.setVisible(true);
                 }
             }
         });
