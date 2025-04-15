@@ -10,7 +10,6 @@ public class Reseña {
         private LocalDate fecha;
         private int util;  // Nuevo campo
 
-        // Constructor actualizado
         public Reseña(int id, int idUsuario, int idPaquete, int rating,
                       String comentario, LocalDate fecha, int util) {
             this.id = id;

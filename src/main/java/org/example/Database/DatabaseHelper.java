@@ -42,7 +42,6 @@ public class DatabaseHelper {
         return reseñas;
     }
 
-    // Método corregido para marcar una reseña como útil
     public static boolean marcarReseñaUtil(int idReseña) {
         String query = "{ ? = call marcar_reseña_util(?) }";
 

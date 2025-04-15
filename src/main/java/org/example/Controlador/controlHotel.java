@@ -25,7 +25,6 @@ public class controlHotel extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // === Panel de filtros ===
         JPanel panelFiltros = new JPanel();
         panelFiltros.add(new JLabel("País:"));
         comboBox1 = new JComboBox<>();
@@ -33,12 +32,10 @@ public class controlHotel extends JFrame {
         panelFiltros.add(comboBox1);
         add(panelFiltros, BorderLayout.NORTH);
 
-        // === Tabla ===
         tablaHoteles = new JTable();
         JScrollPane scrollPane = new JScrollPane(tablaHoteles);
         add(scrollPane, BorderLayout.CENTER);
 
-        // === Botones ===
         JPanel panelBotones = new JPanel();
         btnVerDetalle = new JButton("Ver detalle");
         btnReservar = new JButton("Reservar hotel");
@@ -225,7 +222,6 @@ public class controlHotel extends JFrame {
     }
 
     private void mostrarConfirmacionReserva(String nombre, String ciudad, String fechaEntrada, String fechaSalida, double precio, int idUsuario) {
-        // Calcular duración de la estancia
         long diasEstancia = calcularDuracionEstancia(fechaEntrada, fechaSalida);
         double montoTotal = diasEstancia * precio;
 
@@ -290,7 +286,6 @@ public class controlHotel extends JFrame {
             if (generatedKeys.next()) {
                 int idReserva = generatedKeys.getInt(1);
 
-                // Insertar el pago asociado
                 String sqlPago = "INSERT INTO pago (idReserva, metodoPago, monto, estadoPago) VALUES (?, ?, ?, ?)";
                 PreparedStatement stmtPago = conn.prepareStatement(sqlPago);
                 stmtPago.setInt(1, idReserva);
