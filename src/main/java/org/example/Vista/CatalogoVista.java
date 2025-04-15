@@ -9,6 +9,7 @@ public class CatalogoVista extends JFrame {
 
     private JTextArea areaDestinos;
     private JButton botonRecargar;
+    private JButton botonVerDetalles; // Nuevo botón
 
     public CatalogoVista() {
         setTitle("Catálogo de Destinos");
@@ -22,9 +23,15 @@ public class CatalogoVista extends JFrame {
         JScrollPane scroll = new JScrollPane(areaDestinos);
 
         botonRecargar = new JButton("Recargar Catálogo");
+        botonVerDetalles = new JButton("Ver Detalles"); // Crear botón
+
+        // Panel para los botones
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(botonRecargar);
+        panelBotones.add(botonVerDetalles);
 
         add(scroll, BorderLayout.CENTER);
-        add(botonRecargar, BorderLayout.SOUTH);
+        add(panelBotones, BorderLayout.SOUTH);
     }
 
     public void mostrarDestinos(String texto) {
@@ -33,6 +40,8 @@ public class CatalogoVista extends JFrame {
 
     public void setControlador(CatalogoControlador controlador) {
         botonRecargar.addActionListener(e -> controlador.cargarDestinos());
+
+        // Aquí puedes asignar la acción del botón de ver detalles
+        botonVerDetalles.addActionListener(e -> controlador.cargarDestinos());
     }
 }
-
