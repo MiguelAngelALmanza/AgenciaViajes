@@ -42,12 +42,6 @@ public class LoginControlador {
                             new Paquetebasico("Playas del Caribe", 750.0, 7, List.of("Hotel 5*", "Comidas", "Tour acuático")),
                             new Paquetebasico("Aventura en la Selva", 499.0, 5, List.of("Rafting", "Caminatas", "Camping"))
                     );
-
-                    PaqueteVista paquetesVista = new PaqueteVista(paquetes);
-                    new PaquetebControlador(paquetesVista, paquetes);
-                    paquetesVista.setVisible(true);
-
-//alex
                     CatalogoVista catalogoVista = new CatalogoVista();
                     new CatalogoControlador(catalogoVista);
                     catalogoVista.setVisible(true);
