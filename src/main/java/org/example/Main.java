@@ -9,7 +9,7 @@ public class Main {
         LoginVista vistaLogin = new LoginVista();
         new LoginControlador(vistaLogin);
         vistaLogin.setVisible(true);
-        controlHotel ventana = new controlHotel();
-        ventana.setVisible(true);
+        //controlHotel ventana = new controlHotel();
+        //ventana.setVisible(true);
     }
 }
