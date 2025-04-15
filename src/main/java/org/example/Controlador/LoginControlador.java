@@ -1,16 +1,16 @@
 package org.example.Controlador;
 
+import org.example.Guiaturistico.Guiaturistico;
 import org.example.Modelo.Paquetebasico;
 import org.example.Modelo.UsuarioDAO;
-import org.example.Vista.LoginVista;
-import org.example.Vista.PaqueteVista;
-import org.example.Vista.RegistroVista;
+import org.example.Vista.*;
+import org.example.Vista.ReseñasApp;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import org.example.Vista.CatalogoVista;
+
 import org.example.Controlador.CatalogoControlador;
 
 public class LoginControlador {
@@ -31,12 +31,9 @@ public class LoginControlador {
                 if (autenticado) {
                     vista.mostrarMensaje("¡Inicio de sesión exitoso!");
 
-                    int idUsuario = dao.obtenerIdUsuario(correo);
-                    System.out.println("ID Usuario: " + idUsuario);
 
                     vista.dispose(); // cerrar la ventana de login
 
-                    // Cargar paquetes (puedes ponerlo fijo o desde base de datos)
                     List<Paquetebasico> paquetes = List.of(
                             new Paquetebasico("Montañas de Bolivia", 350.0, 4, List.of("Guía", "Comidas", "Transporte")),
                             new Paquetebasico("Playas del Caribe", 750.0, 7, List.of("Hotel 5*", "Comidas", "Tour acuático")),
@@ -51,6 +48,16 @@ public class LoginControlador {
                     CatalogoVista catalogoVista = new CatalogoVista();
                     new CatalogoControlador(catalogoVista);
                     catalogoVista.setVisible(true);
+
+                    controlHotel ventana = new controlHotel();
+                    ventana.setVisible(true);
+
+                    ReseñasApp reseñasVista = new ReseñasApp(1);
+                    reseñasVista.setVisible(true);
+
+                    Guiaturistico guiaturistico = new Guiaturistico();
+                    guiaturistico.setVisible(true);
+
                 }
             }
         });

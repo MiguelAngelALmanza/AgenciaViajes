@@ -47,9 +47,9 @@ public class RegistroControlador {
 
 
         vista.mostrarMensaje("¡Cuenta creada con éxito!\nBienvenido/a " + nombre);
-        vista.dispose(); // Cierra la ventana de registro
+        vista.dispose();
         vista.mostrarMensaje("¡Cuenta creada con éxito!");
-        vista.dispose(); // Cerramos la ventana de registro
+        vista.dispose();
 
 
         List<Paquetebasico> paquetes = List.of(
@@ -67,6 +67,8 @@ public class RegistroControlador {
         new CatalogoControlador(catalogoVista);
         catalogoVista.setVisible(true);
 
+        controlHotel ventana = new controlHotel();
+        ventana.setVisible(true);
     }
 
 }

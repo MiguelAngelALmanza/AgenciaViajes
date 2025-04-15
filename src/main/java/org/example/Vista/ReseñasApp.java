@@ -20,7 +20,6 @@ public class ReseñasApp extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Panel de filtros
         JPanel panelFiltros = new JPanel();
         comboFiltro = new JComboBox<>(new String[]{"Más recientes", "Mejor valoradas"});
         JButton btnFiltrar = new JButton("Filtrar");
@@ -28,12 +27,12 @@ public class ReseñasApp extends JFrame {
         panelFiltros.add(comboFiltro);
         panelFiltros.add(btnFiltrar);
 
-        // Panel de reseñas
+
         panelReseñas = new JPanel();
         panelReseñas.setLayout(new BoxLayout(panelReseñas, BoxLayout.Y_AXIS));
         JScrollPane scroll = new JScrollPane(panelReseñas);
 
-        // Acción del botón
+
         btnFiltrar.addActionListener(e -> cargarReseñas());
 
         add(panelFiltros, BorderLayout.NORTH);
@@ -57,18 +56,18 @@ public class ReseñasApp extends JFrame {
                 JPanel card = new JPanel(new BorderLayout());
                 card.setBorder(BorderFactory.createEtchedBorder());
 
-                // Panel superior
+
                 JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
                 panelSuperior.add(new JLabel("★".repeat(r.getRating())));
                 panelSuperior.add(new JLabel("Usuario #" + r.getIdUsuario()));
                 panelSuperior.add(new JLabel(r.getFecha().format(dtf)));
 
-                // Panel central
+
                 JTextArea comentario = new JTextArea(r.getComentario());
                 comentario.setLineWrap(true);
                 comentario.setEditable(false);
 
-                // Panel inferior
+
                 JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.RIGHT));
                 JButton btnUtil = new JButton("Útil (" + r.getUtil() + ")");
                 btnUtil.addActionListener(e -> {
@@ -94,8 +93,8 @@ public class ReseñasApp extends JFrame {
         panelReseñas.repaint();
     }
 
-    public static void main(String[] args) {
+    //public static void main(String[] args) {
         // Ejemplo: Mostrar reseñas del paquete con ID 1
-        SwingUtilities.invokeLater(() -> new ReseñasApp(1).setVisible(true));
-    }
+       // SwingUtilities.invokeLater(() -> new ReseñasApp(1).setVisible(true));
+    //}
 }

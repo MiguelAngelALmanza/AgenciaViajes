@@ -40,8 +40,6 @@ public class CatalogoVista extends JFrame {
 
     public void setControlador(CatalogoControlador controlador) {
         botonRecargar.addActionListener(e -> controlador.cargarDestinos());
-
-        // Aquí puedes asignar la acción del botón de ver detalles
         botonVerDetalles.addActionListener(e -> controlador.cargarDestinos());
     }
 }
