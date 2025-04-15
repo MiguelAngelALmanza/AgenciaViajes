@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.Controlador.controlHotel;
+
 import org.example.Vista.LoginVista;
 import org.example.Controlador.LoginControlador;
 
@@ -9,7 +9,6 @@ public class Main {
         LoginVista vistaLogin = new LoginVista();
         new LoginControlador(vistaLogin);
         vistaLogin.setVisible(true);
-        //controlHotel ventana = new controlHotel();
-        //ventana.setVisible(true);
+
     }
 }

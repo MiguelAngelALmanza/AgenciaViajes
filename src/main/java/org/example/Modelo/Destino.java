@@ -10,7 +10,6 @@ public class Destino {
     private String categoria;
     private String rutaImagen;
 
-    // Constructor
     public Destino(int idDestino, String pais, String ciudad, String descripcion, String infoTuristica,
                    double precio, String categoria, String rutaImagen) {
         this.idDestino = idDestino;
@@ -23,14 +22,41 @@ public class Destino {
         this.rutaImagen = rutaImagen;
     }
 
-    // Getters
-    public int getIdDestino() { return idDestino; }
-    public String getPais() { return pais; }
-    public String getCiudad() { return ciudad; }
-    public String getDescripcion() { return descripcion; }
-    public String getInfoTuristica() { return infoTuristica; }
-    public double getPrecio() { return precio; }
-    public String getCategoria() { return categoria; }
-    public String getRutaImagen() { return rutaImagen; }
-}
+    // Método genérico para obtener el ID
+    public int getId() {
+        return idDestino;
+    }
 
+    // Getter específico
+    public int getIdDestino() {
+        return idDestino;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getInfoTuristica() {
+        return infoTuristica;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+}

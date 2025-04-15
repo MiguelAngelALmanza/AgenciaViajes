@@ -24,7 +24,6 @@ public class FormularioComidas {
         JCheckBox comida4 = new JCheckBox("Chicharrón");
 
 
-        // Ingredientes + imagen (puedes cambiar la ruta de imagen local o de internet)
         agregarInfoComida(comida1, "Carne, papa, ají colorado, huevo, pasas, aceituna, masa de trigo", "org/example/Modelo/saltenia.jpg");
         agregarInfoComida(comida2, "Carne empanizada, arroz, papa, huevo frito, ensalada", "org/example/Modelo/silpancho.jpg");
         agregarInfoComida(comida3, "Maní, carne, papa, fideo, zanahoria", "org/example/Modelo/sopademani.jpg");
