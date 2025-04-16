@@ -7,10 +7,7 @@ import java.awt.event.*;
 
 
 public class FormularioComidas {
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(FormularioComidas::crearFormulario);
 
-    }
 
     public static void crearFormulario() {
         JFrame frame = new JFrame("Formulario de Comidas");

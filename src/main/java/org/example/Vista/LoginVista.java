@@ -3,7 +3,6 @@ package org.example.Vista;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class LoginVista extends JFrame {
 
