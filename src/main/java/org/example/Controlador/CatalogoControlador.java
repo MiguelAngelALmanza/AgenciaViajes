@@ -4,6 +4,7 @@ import org.example.Modelo.Destino;
 import org.example.Modelo.DestinoDAO;
 import org.example.Vista.CatalogoVista;
 import org.example.Vista.DetalleDestinoVista;
+import org.example.Vista.ReseñasApp;
 
 import java.util.List;
 
@@ -36,7 +37,13 @@ public class CatalogoControlador {
     }
 
     public void verReseñasSeleccionadas() {
-        // Implementar si lo necesitas más adelante
+        Destino seleccionado = vista.getDestinoSeleccionado();
+        if (seleccionado != null) {
+            new ReseñasApp(seleccionado.getId()).setVisible(true);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(vista, "Selecciona un destino para ver las reseñas.");
+        }
     }
+
 }
 
