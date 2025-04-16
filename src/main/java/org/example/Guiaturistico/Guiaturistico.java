@@ -21,7 +21,7 @@ public class Guiaturistico extends JFrame {
     public Guiaturistico() {
         setTitle("Guías Turísticos");
         setSize(500, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
 
@@ -134,9 +134,5 @@ public class Guiaturistico extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new Guiaturistico().setVisible(true);
-        });
-    }
+
 }
