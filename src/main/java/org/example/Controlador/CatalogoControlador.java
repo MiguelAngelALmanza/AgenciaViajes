@@ -3,10 +3,11 @@ package org.example.Controlador;
 import org.example.Modelo.Destino;
 import org.example.Modelo.DestinoDAO;
 import org.example.Vista.CatalogoVista;
-import org.example.Vista.ReseñasApp;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CatalogoControlador {
 
@@ -18,60 +19,44 @@ public class CatalogoControlador {
         this.vista = vista;
         this.dao = new DestinoDAO();
         this.vista.setControlador(this);
-        cargarDestinos(); // Cargar al abrir
+        cargarDestinos(); // Cargar al inicio
     }
 
     public void cargarDestinos() {
         destinos = dao.obtenerDestinos();
-        StringBuilder texto = new StringBuilder();
+        vista.mostrarDestinos(destinos);
+    }
 
-        for (Destino d : destinos) {
-            texto.append("ID: ").append(d.getId()).append(" - ") // Mostrar el ID para reseñas
-                    .append("Destino: ").append(d.getCiudad()).append(", ").append(d.getPais()).append("\n")
-                    .append("Categoría: ").append(d.getCategoria()).append("\n")
-                    .append("Precio: $").append(d.getPrecio()).append("\n")
-                    .append("Descripción: ").append(d.getDescripcion()).append("\n")
-                    .append("----------\n");
-        }
+    public void aplicarFiltro(String texto, String categoria) {
+        List<Destino> filtrados = destinos.stream()
+                .filter(d -> (texto.isEmpty() || d.getCiudad().toLowerCase().contains(texto.toLowerCase())
+                        || d.getPais().toLowerCase().contains(texto.toLowerCase()))
+                        && (categoria.equals("Todos") || d.getCategoria().equalsIgnoreCase(categoria)))
+                .collect(Collectors.toList());
 
-        vista.mostrarDestinos(texto.toString());
+        vista.mostrarDestinos(filtrados);
     }
 
     public void verDetallesSeleccionado() {
-        // Aquí podrías mostrar una ventana con info detallada
-        JOptionPane.showMessageDialog(vista, "Función de ver detalles aún no implementada.");
+        Destino destinoSeleccionado = vista.getDestinoSeleccionado();
+
+        if (destinoSeleccionado != null) {
+            // Mostrar los detalles de este destino
+            String detalles = "<html><h2>" + destinoSeleccionado.getCiudad() + ", " + destinoSeleccionado.getPais() + "</h2>"
+                    + "<p><b>Descripción:</b> " + destinoSeleccionado.getDescripcion() + "</p>"
+                    + "<p><b>Información Turística:</b> " + destinoSeleccionado.getInfoTuristica() + "</p>"
+                    + "<p><b>Precio:</b> $" + destinoSeleccionado.getPrecio() + "</p>"
+                    + "<p><b>Categoría:</b> " + destinoSeleccionado.getCategoria() + "</p>"
+                    + "</html>";
+
+            JOptionPane.showMessageDialog(vista, detalles, "Detalles del Destino", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(vista, "Por favor selecciona un destino para ver los detalles.");
+        }
     }
+
 
     public void verReseñasSeleccionadas() {
-        JTextArea area = vista.getAreaDestinos();
-        String texto = area.getSelectedText();
-
-        if (texto == null || texto.isBlank()) {
-            JOptionPane.showMessageDialog(vista, "Por favor selecciona un destino del texto primero.");
-            return;
-        }
-
-        // Buscar el ID en el texto seleccionado
-        int idSeleccionado = extraerIdDesdeTexto(texto);
-
-        if (idSeleccionado != -1) {
-            SwingUtilities.invokeLater(() -> new ReseñasApp(idSeleccionado).setVisible(true));
-        } else {
-            JOptionPane.showMessageDialog(vista, "No se pudo identificar el destino seleccionado.");
-        }
-    }
-
-    private int extraerIdDesdeTexto(String texto) {
-        try {
-            String[] lineas = texto.split("\n");
-            for (String linea : lineas) {
-                if (linea.startsWith("ID: ")) {
-                    return Integer.parseInt(linea.substring(4).split(" ")[0]);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1;
+        JOptionPane.showMessageDialog(vista, "Función de ver reseñas aún no implementada.");
     }
 }
