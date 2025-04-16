@@ -4,127 +4,135 @@ import org.example.Database.ConexionDB;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.*;
+import java.util.HashMap;
 
 public class Guiaturistico extends JFrame {
-    private JTextField txtIdGuia;
-    private JButton btnBuscar;
+    private JList<String> listaGuias;
+    private DefaultListModel<String> modeloLista;
+    private HashMap<String, Integer> nombreToId; // Mapea nombre => idguia
+
     private JLabel lblNombre;
     private JTextArea txtExperiencia;
     private JLabel lblIdiomas;
     private JLabel lblContacto;
 
     public Guiaturistico() {
-        setTitle("Guía Turístico");
-        setSize(450, 350);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Guías Turísticos");
+        setSize(500, 400);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
-        // Campo para ID
-        gbc.gridx = 0; gbc.gridy = 0;
-        add(new JLabel("ID del Guía:"), gbc);
+        // Lista de guías
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridheight = 5;
+        modeloLista = new DefaultListModel<>();
+        listaGuias = new JList<>(modeloLista);
+        listaGuias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollLista = new JScrollPane(listaGuias);
+        scrollLista.setPreferredSize(new Dimension(150, 250));
+        add(scrollLista, gbc);
 
-        txtIdGuia = new JTextField(10);
-        gbc.gridx = 1;
-        add(txtIdGuia, gbc);
-
-        btnBuscar = new JButton("Buscar");
-        gbc.gridx = 2;
-        add(btnBuscar, gbc);
+        // Panel de detalles
+        JPanel panelDetalles = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcDet = new GridBagConstraints();
+        gbcDet.insets = new Insets(5, 5, 5, 5);
+        gbcDet.anchor = GridBagConstraints.WEST;
 
         // Nombre
-        gbc.gridx = 0; gbc.gridy = 1;
-        add(new JLabel("Nombre:"), gbc);
+        gbcDet.gridx = 0; gbcDet.gridy = 0;
+        panelDetalles.add(new JLabel("Nombre:"), gbcDet);
         lblNombre = new JLabel("-");
-        gbc.gridx = 1;
-        add(lblNombre, gbc);
+        gbcDet.gridx = 1;
+        panelDetalles.add(lblNombre, gbcDet);
 
         // Experiencia
-        gbc.gridx = 0; gbc.gridy = 2;
-        add(new JLabel("Experiencia:"), gbc);
+        gbcDet.gridx = 0; gbcDet.gridy = 1;
+        panelDetalles.add(new JLabel("Experiencia:"), gbcDet);
         txtExperiencia = new JTextArea(4, 20);
         txtExperiencia.setLineWrap(true);
         txtExperiencia.setWrapStyleWord(true);
         txtExperiencia.setEditable(false);
-        JScrollPane scroll = new JScrollPane(txtExperiencia);
-        gbc.gridx = 1;
-        add(scroll, gbc);
+        JScrollPane scrollExp = new JScrollPane(txtExperiencia);
+        gbcDet.gridx = 1;
+        panelDetalles.add(scrollExp, gbcDet);
 
         // Idiomas
-        gbc.gridx = 0; gbc.gridy = 3;
-        add(new JLabel("Idiomas:"), gbc);
+        gbcDet.gridx = 0; gbcDet.gridy = 2;
+        panelDetalles.add(new JLabel("Idiomas:"), gbcDet);
         lblIdiomas = new JLabel("-");
-        gbc.gridx = 1;
-        add(lblIdiomas, gbc);
+        gbcDet.gridx = 1;
+        panelDetalles.add(lblIdiomas, gbcDet);
 
         // Contacto
-        gbc.gridx = 0; gbc.gridy = 4;
-        add(new JLabel("Contacto:"), gbc);
+        gbcDet.gridx = 0; gbcDet.gridy = 3;
+        panelDetalles.add(new JLabel("Contacto:"), gbcDet);
         lblContacto = new JLabel("-");
-        gbc.gridx = 1;
-        add(lblContacto, gbc);
+        gbcDet.gridx = 1;
+        panelDetalles.add(lblContacto, gbcDet);
 
-        // Acción del botón
-        btnBuscar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buscarGuiaPorId();
+        gbc.gridx = 1; gbc.gridy = 0; gbc.gridheight = 1;
+        add(panelDetalles, gbc);
+
+        // Lógica para seleccionar guía
+        listaGuias.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                String nombreSeleccionado = listaGuias.getSelectedValue();
+                if (nombreSeleccionado != null) {
+                    int idGuia = nombreToId.get(nombreSeleccionado);
+                    cargarDetallesGuia(idGuia);
+                }
             }
         });
+
+        cargarListaGuias();
     }
 
-    private void buscarGuiaPorId() {
-        String idTexto = txtIdGuia.getText().trim();
-        if (idTexto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un ID para buscar.");
-            return;
+    private void cargarListaGuias() {
+        nombreToId = new HashMap<>();
+        modeloLista.clear();
+
+        try (Connection conn = ConexionDB.conectar();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT idguia, nombre FROM guiaturistico ORDER BY nombre ASC")) {
+
+            while (rs.next()) {
+                int id = rs.getInt("idguia");
+                String nombre = rs.getString("nombre");
+                modeloLista.addElement(nombre);
+                nombreToId.put(nombre, id);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar guías: " + e.getMessage());
         }
+    }
 
-        try {
-            int idGuia = Integer.parseInt(idTexto);
+    private void cargarDetallesGuia(int idGuia) {
+        try (Connection conn = ConexionDB.conectar();
+             PreparedStatement ps = conn.prepareStatement(
+                     "SELECT nombre, experiencia, idiomas, contacto FROM guiaturistico WHERE idguia = ?")) {
 
-            try (Connection conn = ConexionDB.conectar();
-                 PreparedStatement ps = conn.prepareStatement("SELECT nombre, experiencia, idiomas, contacto FROM guiaturistico WHERE idguia = ?")) {
+            ps.setInt(1, idGuia);
 
-                ps.setInt(1, idGuia);
-
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        lblNombre.setText(rs.getString("nombre"));
-                        txtExperiencia.setText(rs.getString("experiencia"));
-                        lblIdiomas.setText(rs.getString("idiomas"));
-                        lblContacto.setText(rs.getString("contacto"));
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Guía no encontrado.");
-                        limpiarCampos();
-                    }
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    lblNombre.setText(rs.getString("nombre"));
+                    txtExperiencia.setText(rs.getString("experiencia"));
+                    lblIdiomas.setText(rs.getString("idiomas"));
+                    lblContacto.setText(rs.getString("contacto"));
                 }
             }
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error en la base de datos: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar datos del guía: " + e.getMessage());
         }
     }
 
-    private void limpiarCampos() {
-        lblNombre.setText("-");
-        txtExperiencia.setText("");
-        lblIdiomas.setText("-");
-        lblContacto.setText("-");
-    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new Guiaturistico().setVisible(true);
-        });
-    }
 }

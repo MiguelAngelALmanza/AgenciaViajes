@@ -1,6 +1,10 @@
+package org.example.Vista;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+
 
 public class FormularioComidas {
     public static void main(String[] args) {
@@ -10,7 +14,8 @@ public class FormularioComidas {
 
     public static void crearFormulario() {
         JFrame frame = new JFrame("Formulario de Comidas");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         frame.setSize(550, 600);
 
         JPanel panel = new JPanel();
