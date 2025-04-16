@@ -12,6 +12,8 @@ public class CatalogoVista extends JFrame {
     private JButton botonVerDetalles;
     private JButton botonVerReseñas; // NUEVO BOTÓN
     private JButton botonColaboradores;
+    private JButton botonVerMenu;
+
     public CatalogoVista() {
         setTitle("Catálogo de Destinos");
         setSize(500, 400);
@@ -27,13 +29,13 @@ public class CatalogoVista extends JFrame {
         botonVerDetalles = new JButton("Ver Detalles");
         botonVerReseñas = new JButton("Ver Reseñas"); // Instanciar nuevo botón
         botonColaboradores = new JButton("Conoce a nuestros colaboradores"); // NUEVO
-
+        botonVerMenu = new JButton("Ver Menú");
         JPanel panelBotones = new JPanel();
         panelBotones.add(botonRecargar);
         panelBotones.add(botonVerDetalles);
         panelBotones.add(botonVerReseñas); // Agregarlo al panel
         panelBotones.add(botonColaboradores); // NUEVO
-
+        panelBotones.add(botonVerMenu);
         add(scroll, BorderLayout.CENTER);
         add(panelBotones, BorderLayout.SOUTH);
     }
@@ -49,6 +51,13 @@ public class CatalogoVista extends JFrame {
         botonColaboradores.addActionListener(e -> {
             new org.example.Guiaturistico.Guiaturistico().setVisible(true);
         });
+        botonVerMenu.addActionListener(e -> SwingUtilities.invokeLater(FormularioComidas::crearFormulario));
+
+
+
+
+
+
 
     }
 
