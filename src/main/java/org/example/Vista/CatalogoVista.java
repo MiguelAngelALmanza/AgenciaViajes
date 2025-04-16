@@ -16,7 +16,7 @@ public class CatalogoVista extends JFrame {
 
     public CatalogoVista() {
         setTitle("Catálogo de Destinos");
-        setSize(500, 400);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
